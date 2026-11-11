@@ -6,7 +6,7 @@ from django.contrib.auth.models import User
 
 def logar_usuario(request):
     if request.method == 'POST':
-        identificador = request.POST.get('id')
+        identificador = request.POST.get('username')
         senha = request.POST.get('senha')
 
         usuario=None
