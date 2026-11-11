@@ -4,6 +4,6 @@ from . import views
 
 
 urlpatterns=[
-    path('',views.cadastrar_participante, name='cadastrar_participante')
+    path('formulario',views.cadastrar_participante, name='cadastrar_participante')
 ]
 

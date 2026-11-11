@@ -3,5 +3,6 @@ from . import views
 
 urlpatterns=[
     path('relatorios',views.painel_relatorio, name='relatorios'),
-    path('deletar/<int:participante_id>/', views.deletar_participante, name='deletar_participante')
+    path('relatorios/deletar/<int:participante_id>/', views.deletar_participante, name='deletar_participante'),
+    path('relatoris/pdf', views.gerar_relatorio_pdf, name='gerar_relatorio_pdf')
 ]

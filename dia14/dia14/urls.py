@@ -21,4 +21,5 @@ urlpatterns = [
     path('admin/', admin.site.urls),
     path('',include('formulario.urls')),
     path('',include('relatorios.urls')),
+    path('',include('login.urls')),
 ]
