@@ -10,15 +10,19 @@ def logar_usuario(request):
         senha = request.POST.get('senha')
 
         usuario=None
-        if '@' in identificador:
-            try:
+        try:
+            if '@' in identificador:
+            
                 user_obj=User.objects.get(email=identificador)#Buscando usuario pelo o e-mail
 
                 usuario=authenticate(request,username=user_obj.username, password=senha)
 
-            except User.DoesNotExist:
-                usuario=None
-
+            else:
+                usuario=authenticate(request,username=identificador, password=senha)
+                
+        except User.DoesNotExist:
+            usuario=None
+            
         if usuario is not None:
             login(request, usuario)
             messages.success(request, "Login realizado com sucesso!")
