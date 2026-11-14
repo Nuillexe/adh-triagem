@@ -1,43 +1,62 @@
+
 <!DOCTYPE html>
 <html lang="pt-br">
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>Relatórios e Insights - ADH Conquista</title>
-    
-    <!-- Bootstrap 5 e Ícones -->
+
     <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.0/dist/css/bootstrap.min.css" rel="stylesheet">
     <link href="https://cdn.jsdelivr.net/npm/bootstrap-icons@1.10.5/font/bootstrap-icons.css" rel="stylesheet">
+
     {% load static %}
 </head>
+
 <body class="bg-light">
 
-    <!-- Navbar Superior Responsiva -->
+    <!-- Navbar -->
     <nav class="navbar navbar-expand-lg navbar-dark bg-primary shadow-sm sticky-top">
         <div class="container">
-            <!-- Logo e Nome da ADH -->
+
             <a class="navbar-brand d-flex align-items-center" href="#">
-                <img src="{% static 'formulario/img/logo_adh.png' %}" alt="Logo ADH" width="36" height="36" class="me-2 rounded-circle bg-white p-1">
+                <img src="{% static 'formulario/img/logo_adh.png' %}"
+                     alt="Logo ADH"
+                     width="36"
+                     height="36"
+                     class="me-2 rounded-circle bg-white p-1">
+
                 <span class="fw-bold fs-5">ADH Conquista</span>
             </a>
 
-            <!-- Botão Hambúrguer para Celular -->
-            <button class="navbar-toggler border-0" type="button" data-bs-toggle="collapse" data-bs-target="#navbarADH" aria-controls="navbarADH" aria-expanded="false" aria-label="Toggle navigation">
+            <button class="navbar-toggler border-0"
+                    type="button"
+                    data-bs-toggle="collapse"
+                    data-bs-target="#navbarADH"
+                    aria-controls="navbarADH"
+                    aria-expanded="false"
+                    aria-label="Toggle navigation">
+
                 <span class="navbar-toggler-icon"></span>
             </button>
 
-            <!-- Botões de Navegação Retráteis -->
             <div class="collapse navbar-collapse mt-2 mt-lg-0" id="navbarADH">
                 <div class="navbar-nav ms-auto gap-2">
-                    <a class="btn btn-outline-light btn-sm px-3 w-100 w-lg-auto text-start text-lg-center" href="{% url 'cadastrar_participante' %}">
+
+                    <a class="btn btn-outline-light btn-sm px-3 w-100 text-start text-lg-center"
+                       href="{% url 'cadastrar_participante' %}">
                         <i class="bi bi-person-plus-fill me-1"></i> Cadastrar
                     </a>
-                    <a class="btn btn-light btn-sm px-3 text-primary fw-semibold w-100 w-lg-auto text-start text-lg-center" href="#">
+
+                    <a class="btn btn-light btn-sm px-3 text-primary fw-semibold w-100 text-start text-lg-center"
+                       href="#">
                         <i class="bi bi-bar-chart-line-fill me-1"></i> Relatórios e Insights
                     </a>
-                    <a class="btn btn-outline-light btn-sm px-3 w-100 w-lg-auto text-start text-lg-center" href="{% url 'logout' %}">
+
+                    <a class="btn btn-outline-light btn-sm px-3 w-100 text-start text-lg-center"
+                       href="{% url 'logout' %}">
                         <i class="bi bi-box-arrow-right me-1"></i> Logout
                     </a>
+
                 </div>
             </div>
         </div>
@@ -45,50 +64,100 @@
 
     <!-- Container Principal -->
     <div class="container my-4 my-md-5">
-        
-        <!-- Cabeçalho e Botão de Gerar Documento -->
+
+        <!-- Cabeçalho -->
         <div class="d-flex flex-column flex-md-row justify-content-between align-items-md-center gap-3 mb-4">
+
             <div>
-                <h2 class="fw-bold text-primary mb-1 fs-3 fs-md-2">Painel de Relatórios</h2>
-                <p class="text-muted small mb-0">Estatísticas e registros atualizados do mutirão</p>
+                <h2 class="fw-bold text-primary mb-1 fs-3 fs-md-2">
+                    Painel de Relatórios
+                </h2>
+
+                <p class="text-muted small mb-0">
+                    Estatísticas e registros atualizados do evento
+                </p>
+
+                {% if evento %}
+                    <p class="text-secondary small mb-0 mt-2">
+                        <i class="bi bi-calendar-event me-1"></i>
+                        {{ evento.nome }} -
+                        {{ evento.data|date:"d/m/Y" }}
+                    </p>
+                {% endif %}
             </div>
-            <a href="{% url 'gerar_relatorio_pdf' %}" class="btn btn-danger btn-lg shadow-sm w-100 w-md-auto py-2 px-4 fs-6">
-                <i class="bi bi-file-earmark-pdf-fill me-2"></i> Baixar Relatório (PDF)
+
+            <a href="{% url 'gerar_relatorio_pdf' %}"
+               class="btn btn-danger btn-lg shadow-sm w-100 w-md-auto py-2 px-4 fs-6">
+
+                <i class="bi bi-file-earmark-pdf-fill me-2"></i>
+                Baixar Relatório (PDF)
             </a>
+
         </div>
 
-        <!-- Bloco de Informações / Insights Numéricos -->
+        <!-- Estatísticas -->
         <div class="row g-3 mb-4 mb-md-5">
-            <!-- Total e Porcentagens Básicas -->
+
+            <!-- Panorama Geral -->
             <div class="col-12 col-sm-6 col-lg-3">
                 <div class="card shadow-sm border-0 h-100 rounded-3">
                     <div class="card-body">
+
                         <h6 class="card-title text-primary fw-bold text-uppercase small mb-3">
-                            <i class="bi bi-people-fill me-1"></i> 1. Panorama Geral
+                            <i class="bi bi-people-fill me-1"></i>
+                            1. Panorama Geral
                         </h6>
-                        <p class="mb-2 fs-6"><strong>Atendidos:</strong> <span class="badge bg-primary fs-6">{{ total_participantes }}</span></p>
+
+                        <p class="mb-2 fs-6">
+                            <strong>Atendidos:</strong>
+                            <span class="badge bg-primary fs-6">
+                                {{ total_participantes }}
+                            </span>
+                        </p>
+
                         <hr class="my-2 opacity-25">
+
                         <ul class="list-unstyled mb-0 small text-secondary">
                             <li class="py-1">DM1s: <strong>{{ porc_dm1 }}%</strong></li>
                             <li class="py-1">DM2s: <strong>{{ porc_dm2 }}%</strong></li>
                             <li class="py-1">HTs: <strong>{{ porc_ht }}%</strong></li>
                             <li class="py-1">Nenhum: <strong>{{ porc_nenhum }}%</strong></li>
                         </ul>
+
                     </div>
                 </div>
             </div>
 
-            <!-- Cruzamento Condições -->
+            <!-- Hipertensão -->
             <div class="col-12 col-sm-6 col-lg-3">
                 <div class="card shadow-sm border-0 h-100 rounded-3">
                     <div class="card-body">
+
                         <h6 class="card-title text-primary fw-bold text-uppercase small mb-3">
-                            <i class="bi bi-intersect me-1"></i> 2. Hipertensão
+                            <i class="bi bi-intersect me-1"></i>
+                            2. Hipertensão
                         </h6>
+
                         <ul class="list-unstyled mb-0 small text-secondary">
-                            <li class="mb-2">DM1s Hipertensos: <br><strong class="fs-6 text-dark">{{ porc_ht_dm1 }}%</strong></li>
+
+                            <li class="mb-2">
+                                DM1s Hipertensos:
+                                <br>
+                                <strong class="fs-6 text-dark">
+                                    {{ porc_ht_dm1 }}%
+                                </strong>
+                            </li>
+
                             <hr class="my-2 opacity-25">
-                            <li>DM2s Hipertensos: <br><strong class="fs-6 text-dark">{{ porc_ht_dm2 }}%</strong></li>
+
+                            <li>
+                                DM2s Hipertensos:
+                                <br>
+                                <strong class="fs-6 text-dark">
+                                    {{ porc_ht_dm2 }}%
+                                </strong>
+                            </li>
+
                         </ul>
                     </div>
                 </div>
@@ -98,16 +167,38 @@
             <div class="col-12 col-sm-6 col-lg-3">
                 <div class="card shadow-sm border-0 h-100 rounded-3">
                     <div class="card-body">
+
                         <h6 class="card-title text-primary fw-bold text-uppercase small mb-3">
-                            <i class="bi bi-activity me-1"></i> 3. Glicemia Alta
+                            <i class="bi bi-activity me-1"></i>
+                            3. Glicemia Alta
                         </h6>
-                        <p class="mb-2 small"><strong>Total com Glicemia Alta:</strong> <span class="badge bg-danger fs-6">{{ porc_glicemia_alta }}%</span></p>
+
+                        <p class="mb-2 small">
+                            <strong>Total com Glicemia Alta:</strong>
+                            <span class="badge bg-danger fs-6">
+                                {{ porc_glicemia_alta }}%
+                            </span>
+                        </p>
+
                         <hr class="my-2 opacity-25">
+
                         <ul class="list-unstyled mb-0 small text-secondary">
-                            <li class="py-1">Desses, DM1s: <strong>{{ porc_glicemia_alta_dm1 }}%</strong></li>
-                            <li class="py-1">Desses, DM2s: <strong>{{ porc_glicemia_alta_dm2 }}%</strong></li>
-                            <li class="py-1">Desses, Não Diabéticos: <strong>{{ porc_glicemia_alta_nao_dm }}%</strong></li>
+                            <li class="py-1">
+                                Desses, DM1s:
+                                <strong>{{ porc_glicemia_alta_dm1 }}%</strong>
+                            </li>
+
+                            <li class="py-1">
+                                Desses, DM2s:
+                                <strong>{{ porc_glicemia_alta_dm2 }}%</strong>
+                            </li>
+
+                            <li class="py-1">
+                                Desses, Não Diabéticos:
+                                <strong>{{ porc_glicemia_alta_nao_dm }}%</strong>
+                            </li>
                         </ul>
+
                     </div>
                 </div>
             </div>
@@ -116,37 +207,71 @@
             <div class="col-12 col-sm-6 col-lg-3">
                 <div class="card shadow-sm border-0 h-100 rounded-3">
                     <div class="card-body">
+
                         <h6 class="card-title text-primary fw-bold text-uppercase small mb-3">
-                            <i class="bi bi-heart-pulse-fill me-1"></i> 4. Pressão Alta
+                            <i class="bi bi-heart-pulse-fill me-1"></i>
+                            4. Pressão Alta
                         </h6>
-                        <p class="mb-2 small"><strong>Total com Pressão Alta:</strong> <span class="badge bg-warning text-dark fs-6">{{ porc_pressao_alta }}%</span></p>
+
+                        <p class="mb-2 small">
+                            <strong>Total com Pressão Alta:</strong>
+                            <span class="badge bg-warning text-dark fs-6">
+                                {{ porc_pressao_alta }}%
+                            </span>
+                        </p>
+
                         <hr class="my-2 opacity-25">
+
                         <ul class="list-unstyled mb-0 small text-secondary">
-                            <li class="py-1">Desses, HTs: <strong>{{ porc_pressao_alta_ht }}%</strong></li>
-                            <li class="py-1">Desses, Não Hipertensos: <strong>{{ porc_pressao_alta_nao_ht }}%</strong></li>
+                            <li class="py-1">
+                                Desses, HTs:
+                                <strong>{{ porc_pressao_alta_ht }}%</strong>
+                            </li>
+
+                            <li class="py-1">
+                                Desses, Não Hipertensos:
+                                <strong>{{ porc_pressao_alta_nao_ht }}%</strong>
+                            </li>
                         </ul>
+
                     </div>
                 </div>
             </div>
+
         </div>
 
-        <!-- Listagem de Registros com Tabela e Botão de Deletar -->
+        <!-- Registros de Atendimento -->
         <div class="card shadow-sm border-0 rounded-4">
+
             <div class="card-header bg-white py-3 border-bottom">
-                <h5 class="mb-0 text-primary fw-bold fs-5">Registros de Atendimento</h5>
+                <h5 class="mb-0 text-primary fw-bold fs-5">
+                    Registros de Atendimento
+                </h5>
             </div>
-            
+
+            <!-- Pesquisa -->
             <div class="p-3 bg-light border-bottom">
-                <!-- Campo de Pesquisa -->
+
                 <div class="input-group">
-                    <span class="input-group-text bg-white border-end-0"><i class="bi bi-search text-muted"></i></span>
-                    <input type="text" id="inputBusca" class="form-control border-start-0 ps-0" placeholder="Pesquisar participante por nome...">
+                    <span class="input-group-text bg-white border-end-0">
+                        <i class="bi bi-search text-muted"></i>
+                    </span>
+
+                    <input type="text"
+                           id="inputBusca"
+                           class="form-control border-start-0 ps-0"
+                           placeholder="Pesquisar participante por nome...">
                 </div>
+
             </div>
 
             <div class="card-body p-0">
+
                 <div class="table-responsive">
-                    <table class="table table-striped table-hover mb-0 align-middle" id="tabelaRelatorios">
+
+                    <table class="table table-striped table-hover mb-0 align-middle"
+                           id="tabelaRelatorios">
+
                         <thead class="table-light text-uppercase small fw-bold">
                             <tr>
                                 <th class="py-3 ps-3">Nome</th>
@@ -158,68 +283,141 @@
                                 <th class="py-3 text-center pe-3">Ações</th>
                             </tr>
                         </thead>
+
                         <tbody>
-                            {% for p in participantes %}
-                            <tr>
-                                <td class="ps-3 fw-semibold">{{ p.nome }}</td>
-                                <td>{{ p.idade }}</td>
-                                <td><span class="badge bg-secondary opacity-75">{{ p.condicao_saude }}</span></td>
-                                <td>{{ p.glicemia|default:"-" }}</td>
-                                <td>{{ p.pressao_arterial_str|default:"-" }}</td>
-                                <td class="small text-muted">{{ p.observacao|default:"-" }}</td>
-                                <td class="text-center pe-3">
-                                    <a href="{% url 'deletar_participante' p.id %}" class="btn btn-outline-danger btn-sm" onclick="return confirm('Tem certeza que deseja excluir este registro?');">
-                                        <i class="bi bi-trash-fill me-1"></i>Deletar
-                                    </a>
-                                </td>
-                            </tr>
+
+                            {% for medicao in medicoes %}
+
+                                <tr>
+                                    <!-- Dados do paciente -->
+                                    <td class="ps-3 fw-semibold">
+                                        {{ medicao.paciente.nome }}
+                                    </td>
+
+                                    <td>
+                                        {{ medicao.paciente.idade }}
+                                    </td>
+
+                                    <td>
+                                        <span class="badge bg-secondary opacity-75">
+                                            {{ medicao.paciente.condicao_saude }}
+                                        </span>
+                                    </td>
+
+                                    <!-- Dados da medição -->
+                                    <td>
+                                        {{ medicao.glicemia|default:"-" }}
+                                    </td>
+
+                                    <td>
+                                        {{ medicao.pressao_arterial_str|default:"-" }}
+                                    </td>
+
+                                    <td class="small text-muted">
+                                        {{ medicao.observacao|default:"-" }}
+                                    </td>
+
+                                    <!-- Exclusão do paciente -->
+                                    <td class="text-center pe-3">
+
+                                        <form method="POST"
+                                              action="{% url 'deletar_participante' medicao.paciente_id %}"
+                                              onsubmit="return confirm('Tem certeza que deseja excluir este paciente e todas as suas medições?');">
+
+                                            {% csrf_token %}
+
+                                            <button type="submit"
+                                                    class="btn btn-outline-danger btn-sm">
+
+                                                <i class="bi bi-trash-fill me-1"></i>
+                                                Deletar
+
+                                            </button>
+
+                                        </form>
+
+                                    </td>
+                                </tr>
+
                             {% empty %}
-                            <tr>
-                                <td colspan="7" class="text-center py-4 text-muted">Nenhum participante cadastrado até o momento.</td>
-                            </tr>
+
+                                <tr>
+                                    <td colspan="7"
+                                        class="text-center py-4 text-muted">
+
+                                        Nenhum atendimento cadastrado neste evento.
+
+                                    </td>
+                                </tr>
+
                             {% endfor %}
+
                         </tbody>
                     </table>
+
                 </div>
             </div>
         </div>
 
         <!-- Toast de Notificação -->
-        <div class="toast-container position-fixed bottom-0 end-0 p-3" style="z-index: 11">
+        <div class="toast-container position-fixed bottom-0 end-0 p-3"
+             style="z-index: 11">
+
             {% if messages %}
+
                 {% for message in messages %}
-                    <div class="toast align-items-center text-white bg-success border-0 show shadow-lg" role="alert" aria-live="assertive" aria-atomic="true">
+
+                    <div class="toast align-items-center text-white bg-success border-0 show shadow-lg"
+                         role="alert"
+                         aria-live="assertive"
+                         aria-atomic="true">
+
                         <div class="d-flex">
+
                             <div class="toast-body">
-                                <i class="bi bi-check-circle-fill me-2"></i>{{ message }}
+                                <i class="bi bi-check-circle-fill me-2"></i>
+                                {{ message }}
                             </div>
-                            <button type="button" class="btn-close btn-close-white me-2 m-auto" data-bs-dismiss="toast" aria-label="Close"></button>
+
+                            <button type="button"
+                                    class="btn-close btn-close-white me-2 m-auto"
+                                    data-bs-dismiss="toast"
+                                    aria-label="Close">
+                            </button>
+
                         </div>
                     </div>
+
                 {% endfor %}
+
             {% endif %}
         </div>
 
     </div>
-    
+
+    <!-- Pesquisa na tabela -->
     <script>
         document.getElementById('inputBusca').addEventListener('keyup', function() {
+
             let termo = this.value.toLowerCase();
             let linhas = document.querySelectorAll('#tabelaRelatorios tbody tr');
 
             linhas.forEach(linha => {
+
                 let nome = linha.cells[0].textContent.toLowerCase();
-            
+
                 if (nome.includes(termo)) {
                     linha.style.display = '';
                 } else {
                     linha.style.display = 'none';
                 }
+
             });
+
         });
     </script>
 
-    <!-- Bootstrap JS -->
     <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.3.0/dist/js/bootstrap.bundle.min.js"></script>
+
 </body>
 </html>

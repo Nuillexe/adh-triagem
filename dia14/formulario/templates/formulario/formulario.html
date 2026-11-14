@@ -1,3 +1,4 @@
+
 {% load static %}
 <!DOCTYPE html>
 <html lang="pt-br">
@@ -7,57 +8,73 @@
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>Cadastro - ADH Conquista</title>
 
-    <!-- Bootstrap 5 & Ícones -->
     <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.0/dist/css/bootstrap.min.css" rel="stylesheet">
     <link href="https://cdn.jsdelivr.net/npm/bootstrap-icons@1.10.5/font/bootstrap-icons.css" rel="stylesheet">
 </head>
 
 <body class="bg-light">
 
-    <!-- Navbar Superior Responsiva -->
+    <!-- Navbar -->
     <nav class="navbar navbar-expand-lg navbar-dark bg-primary shadow-sm sticky-top">
         <div class="container">
 
-            <!-- Logo e Nome da ADH -->
             <a class="navbar-brand d-flex align-items-center" href="#">
-                <img src="{% static 'formulario/img/logo_adh.png' %}" alt="Logo ADH" width="36" height="36" class="me-2 rounded-circle bg-white p-1">
+                <img src="{% static 'formulario/img/logo_adh.png' %}"
+                     alt="Logo ADH" width="36" height="36"
+                     class="me-2 rounded-circle bg-white p-1">
                 <span class="fw-bold fs-5">ADH Conquista</span>
             </a>
 
-            <!-- Botão Hambúrguer para Celular -->
-            <button class="navbar-toggler border-0" type="button" data-bs-toggle="collapse" data-bs-target="#navbarADH" aria-controls="navbarADH" aria-expanded="false" aria-label="Toggle navigation">
+            <button class="navbar-toggler border-0" type="button"
+                    data-bs-toggle="collapse" data-bs-target="#navbarADH"
+                    aria-controls="navbarADH" aria-expanded="false"
+                    aria-label="Toggle navigation">
                 <span class="navbar-toggler-icon"></span>
             </button>
 
-            <!-- Menu de Navegação Retrátil -->
             <div class="collapse navbar-collapse mt-2 mt-lg-0" id="navbarADH">
                 <div class="navbar-nav ms-auto gap-2">
+
                     <a class="btn btn-light btn-sm px-3 text-primary fw-semibold w-100 w-lg-auto text-start text-lg-center" href="#">
                         <i class="bi bi-person-plus-fill me-1"></i> Cadastrar
                     </a>
-                    <a class="btn btn-outline-light btn-sm px-3 w-100 w-lg-auto text-start text-lg-center" href="{% url 'relatorios' %}">
+
+                    <a class="btn btn-outline-light btn-sm px-3 w-100 w-lg-auto text-start text-lg-center"
+                       href="{% url 'relatorios' %}">
                         <i class="bi bi-bar-chart-line-fill me-1"></i> Relatórios e Insights
                     </a>
-                    <a class="btn btn-outline-light btn-sm px-3 w-100 w-lg-auto text-start text-lg-center" href="{% url 'logout' %}">
+
+                    <a class="btn btn-outline-light btn-sm px-3 w-100 w-lg-auto text-start text-lg-center"
+                       href="{% url 'logout' %}">
                         <i class="bi bi-box-arrow-right me-1"></i> Logout
                     </a>
+
                 </div>
             </div>
-
         </div>
     </nav>
 
-    <!-- Container Principal do Formulário -->
+    <!-- Formulário -->
     <div class="container my-3 my-md-5">
         <div class="row justify-content-center">
-            <div class="col-12 col-md-8 col-lg-7">
+            <div class="col-12 col-md-9 col-lg-8">
 
-                <!-- Mensagens de Erro ou Sucesso -->
+                <!-- Mensagens -->
                 {% if messages %}
                     {% for message in messages %}
-                        <div class="alert {% if message.tags == 'error' %}alert-danger{% elif message.tags == 'success' %}alert-success{% elif message.tags == 'warning' %}alert-warning{% else %}alert-info{% endif %} alert-dismissible fade show shadow-sm rounded-3" role="alert">
+                        <div class="alert
+                            {% if message.tags == 'error' %}alert-danger
+                            {% elif message.tags == 'success' %}alert-success
+                            {% elif message.tags == 'warning' %}alert-warning
+                            {% else %}alert-info{% endif %}
+                            alert-dismissible fade show shadow-sm rounded-3"
+                            role="alert">
+
                             {{ message }}
-                            <button type="button" class="btn-close" data-bs-dismiss="alert" aria-label="Fechar"></button>
+
+                            <button type="button" class="btn-close"
+                                    data-bs-dismiss="alert" aria-label="Fechar">
+                            </button>
                         </div>
                     {% endfor %}
                 {% endif %}
@@ -65,90 +82,279 @@
                 <div class="card shadow-sm border-0 rounded-4">
 
                     <div class="card-header bg-white text-primary py-3 border-bottom text-center">
-                        <h4 class="mb-0 fw-bold fs-5 fs-md-4">
-                            Ficha de Atendimento
-                        </h4>
+                        <h4 class="mb-0 fw-bold">Ficha de Atendimento</h4>
                         <small class="text-muted">Ação Comunitária de Saúde</small>
                     </div>
 
                     <div class="card-body p-3 p-md-4">
 
-                        <!-- Formulário -->
                         <form method="POST">
                             {% csrf_token %}
 
-                            <!-- Dados Pessoais -->
+                            <!-- DADOS PESSOAIS -->
                             <h6 class="text-primary fw-bold text-uppercase small mb-3">
                                 1. Dados Pessoais
                             </h6>
 
                             <div class="mb-3">
                                 <label for="nome" class="form-label fw-semibold">
-                                    Nome Completo
+                                    Nome Completo *
                                 </label>
-                                <input type="text" class="form-control form-control-lg fs-6" id="nome" name="nome" placeholder="Nome do participante" required>
+                                <input type="text" class="form-control"
+                                       id="nome" name="nome"
+                                       placeholder="Nome do participante"
+                                       maxlength="150" required>
                             </div>
 
                             <div class="row">
-                                <div class="col-12 col-sm-5 col-md-4 mb-3">
+
+                                <div class="col-6 col-md-4 mb-3">
                                     <label for="idade" class="form-label fw-semibold">
-                                        Idade
+                                        Idade *
                                     </label>
-                                    <input type="number" class="form-control form-control-lg fs-6" id="idade" name="idade" min="0" max="120" inputmode="numeric" placeholder="Ex: 45" required>
+                                    <input type="number" class="form-control"
+                                           id="idade" name="idade"
+                                           min="0" max="120"
+                                           placeholder="Ex: 45" required>
                                 </div>
+
+                                <div class="col-6 col-md-4 mb-3">
+                                    <label for="sexo" class="form-label fw-semibold">
+                                        Sexo
+                                    </label>
+                                    <select class="form-select" id="sexo" name="sexo">
+                                        <option value="" selected>Não informado</option>
+                                        <option value="M">Masculino</option>
+                                        <option value="F">Feminino</option>
+                                    </select>
+                                </div>
+
+                                <div class="col-12 col-md-4 mb-3">
+                                    <label for="telefone" class="form-label fw-semibold">
+                                        Telefone *
+                                    </label>
+                                    <input type="tel" class="form-control"
+                                           id="telefone" name="telefone"
+                                           placeholder="(77) 99999-9999"
+                                           maxlength="20" required>
+                                </div>
+
                             </div>
 
                             <div class="mb-3">
                                 <label for="condicao_saude" class="form-label fw-semibold">
-                                    Condição de Saúde Principal
+                                    Condição de Saúde Principal *
                                 </label>
-                                <select class="form-select form-select-lg fs-6" id="condicao_saude" name="condicao_saude" required>
-                                    <option value="" selected disabled>Selecione uma opção...</option>
+
+                                <select class="form-select" id="condicao_saude"
+                                        name="condicao_saude" required>
+
+                                    <option value="" selected disabled>
+                                        Selecione uma opção...
+                                    </option>
+
                                     <option value="DM1">Diabetes Tipo 1 (DM1)</option>
                                     <option value="DM2">Diabetes Tipo 2 (DM2)</option>
                                     <option value="DM1&HT">Diabetes Tipo 1 (DM1) e Hipertensão (HT)</option>
                                     <option value="DM2&HT">Diabetes Tipo 2 (DM2) e Hipertensão (HT)</option>
                                     <option value="HT">Hipertensão (HT)</option>
                                     <option value="Nenhum">Nenhum histórico informado</option>
+
                                 </select>
                             </div>
 
                             <hr class="my-4 text-muted opacity-25">
 
-                            <!-- Dados de Medições -->
+                            <!-- ENDEREÇO -->
                             <h6 class="text-primary fw-bold text-uppercase small mb-3">
-                                2. Medições do Evento
+                                2. Endereço
                             </h6>
 
+                            <div class="mb-3">
+                                <label for="cidade" class="form-label fw-semibold">
+                                    Cidade *
+                                </label>
+
+                                <select class="form-select" id="cidade"
+                                        name="cidade" required>
+
+                                    <option value="" selected disabled>
+                                        Selecione a cidade...
+                                    </option>
+
+                                    <option value="vitoria_da_conquista">
+                                        Vitória da Conquista
+                                    </option>
+
+                                    <option value="outra">Outra</option>
+
+                                </select>
+                            </div>
+
+                            <div class="mb-3">
+                                <label for="bairro" class="form-label fw-semibold">
+                                    Bairro *
+                                </label>
+
+                                <select class="form-select" id="bairro"
+                                        name="bairro" required>
+
+                                    <option value="" selected disabled>
+                                        Selecione o bairro...
+                                    </option>
+
+                                    <option value="alto_maron">Alto Maron</option>
+                                    <option value="ayrton_senna">Ayrton Senna</option>
+                                    <option value="bateias">Bateias</option>
+                                    <option value="boa_vista">Boa Vista</option>
+                                    <option value="brasil">Brasil</option>
+                                    <option value="campinhos">Campinhos</option>
+                                    <option value="candeias">Candeias</option>
+                                    <option value="centro">Centro</option>
+                                    <option value="cruzeiro">Cruzeiro</option>
+                                    <option value="distrito_industrial">Distrito Industrial</option>
+                                    <option value="espirito_santo">Espírito Santo</option>
+                                    <option value="felicia">Felícia</option>
+                                    <option value="guarani">Guarani</option>
+                                    <option value="ibirapuera">Ibirapuera</option>
+                                    <option value="jatoba">Jatobá</option>
+                                    <option value="jurema">Jurema</option>
+                                    <option value="lagoa_das_flores">Lagoa das Flores</option>
+                                    <option value="nossa_senhora_aparecida">Nossa Senhora Aparecida</option>
+                                    <option value="patagonia">Patagônia</option>
+                                    <option value="primavera">Primavera</option>
+                                    <option value="recreio">Recreio</option>
+                                    <option value="sao_pedro">São Pedro</option>
+                                    <option value="universidade">Universidade</option>
+                                    <option value="zabele">Zabelê</option>
+                                    <option value="miro_cairo">Miro Cairo</option>
+
+                                    <optgroup label="Outras localidades e loteamentos">
+                                        <option value="bnh">BNH</option>
+                                        <option value="bruno_bacelar">Bruno Bacelar</option>
+                                        <option value="comveima">Comveima</option>
+                                        <option value="henriqueta_prates">Henriqueta Prates</option>
+                                        <option value="iracema">Iracema</option>
+                                        <option value="jardim_valeria">Jardim Valéria</option>
+                                        <option value="kadija">Kadija</option>
+                                        <option value="morada_dos_passaros">Morada dos Pássaros</option>
+                                        <option value="nova_cidade">Nova Cidade</option>
+                                        <option value="novo_horizonte">Novo Horizonte</option>
+                                        <option value="urbis_i">Urbis I</option>
+                                        <option value="urbis_ii">Urbis II</option>
+                                        <option value="urbis_iii">Urbis III</option>
+                                        <option value="urbis_iv">Urbis IV</option>
+                                        <option value="urbis_v">Urbis V</option>
+                                        <option value="urbis_vi">Urbis VI</option>
+                                        <option value="vila_serrana">Vila Serrana</option>
+                                        <option value="cidade_modelo">Cidade Modelo</option>
+                                        <option value="cidade_maravilhosa">Cidade Maravilhosa</option>
+                                    </optgroup>
+
+                                    <optgroup label="Outras opções">
+                                        <option value="zona_rural">Zona Rural</option>
+                                        <option value="outro">Outro</option>
+                                    </optgroup>
+
+                                </select>
+                            </div>
+
                             <div class="row">
+
+                                <div class="col-12 col-md-8 mb-3">
+                                    <label for="rua" class="form-label fw-semibold">
+                                        Rua / Logradouro
+                                    </label>
+
+                                    <input type="text" class="form-control"
+                                           id="rua" name="rua"
+                                           maxlength="150"
+                                           placeholder="Nome da rua">
+                                </div>
+
+                                <div class="col-12 col-md-4 mb-3">
+                                    <label for="numero_da_residencia" class="form-label fw-semibold">
+                                        Número
+                                    </label>
+
+                                    <input type="text" class="form-control"
+                                           id="numero_da_residencia"
+                                           name="numero_da_residencia"
+                                           maxlength="10"
+                                           placeholder="Ex: 120">
+                                </div>
+
+                            </div>
+
+                            <hr class="my-4 text-muted opacity-25">
+
+                            <!-- MEDIÇÕES -->
+                            <h6 class="text-primary fw-bold text-uppercase small mb-3">
+                                3. Medições do Evento
+                            </h6>
+
+                            <div class="alert alert-info rounded-3 small">
+                                <i class="bi bi-calendar-event me-1"></i>
+                                <strong>Evento:</strong> Ação social de Educação em Diabetes
+                                <br>
+                                <strong>Local:</strong> Projeto Social Vila América
+                                <br>
+                                <strong>Data:</strong> 14/11/2026
+                            </div>
+
+                            <div class="row">
+
                                 <div class="col-12 col-sm-6 mb-3">
                                     <label for="glicemia" class="form-label fw-semibold">
-                                        Glicemia (mg/dL)
+                                        Glicemia (mg/dL) *
                                     </label>
-                                    <input type="number" class="form-control form-control-lg fs-6" id="glicemia" name="glicemia" min="0" inputmode="numeric" placeholder="Ex: 110">
+
+                                    <input type="number" class="form-control"
+                                           id="glicemia" name="glicemia"
+                                           min="0" step="1"
+                                           placeholder="Ex: 110" required>
                                 </div>
 
                                 <div class="col-12 col-sm-6 mb-3">
                                     <label for="pressao_arterial" class="form-label fw-semibold">
-                                        Pressão Arterial
+                                        Pressão Arterial *
                                     </label>
-                                    <input type="text" class="form-control form-control-lg fs-6" id="pressao_arterial" name="pressao_arterial" placeholder="Ex: 120/80">
+
+                                    <input type="text" class="form-control"
+                                           id="pressao_arterial"
+                                           name="pressao_arterial"
+                                           placeholder="Ex: 120/80"
+                                           pattern="[0-9]{2,3}/[0-9]{2,3}"
+                                           title="Informe no formato 120/80"
+                                           required>
                                 </div>
+
                             </div>
 
                             <div class="mb-3">
                                 <label for="observacao" class="form-label fw-semibold">
                                     Observações
                                 </label>
-                                <textarea class="form-control" id="observacao" name="observacao" rows="3" placeholder="Anotações adicionais da triagem..."></textarea>
+
+                                <textarea class="form-control"
+                                          id="observacao" name="observacao"
+                                          rows="3"
+                                          maxlength="200"
+                                          placeholder="Anotações adicionais da triagem..."></textarea>
                             </div>
 
-                            <!-- Botão de Envio -->
+                            <!-- BOTÃO -->
                             <div class="d-grid mt-4">
-                                <button type="submit" class="btn btn-primary btn-lg shadow-sm py-3 fw-bold fs-6">
-                                    <i class="bi bi-check-circle-fill me-2"></i>Salvar Cadastro
+                                <button type="submit"
+                                        class="btn btn-primary btn-lg shadow-sm py-3 fw-bold">
+                                    <i class="bi bi-check-circle-fill me-2"></i>
+                                    Salvar Cadastro
                                 </button>
                             </div>
+
+                            <small class="text-muted d-block mt-3">
+                                * Campos obrigatórios.
+                            </small>
 
                         </form>
 
@@ -159,8 +365,8 @@
         </div>
     </div>
 
-    <!-- Bootstrap JavaScript -->
     <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.3.0/dist/js/bootstrap.bundle.min.js"></script>
+
     <script>
         const campos = document.querySelectorAll('input[required], select[required]');
 
@@ -174,7 +380,12 @@
             campo.addEventListener('input', function () {
                 this.setCustomValidity('');
             });
+
+            campo.addEventListener('change', function () {
+                this.setCustomValidity('');
+            });
         });
     </script>
+
 </body>
 </html>

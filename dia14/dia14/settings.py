@@ -81,7 +81,7 @@ ALLOWED_HOSTS = config(
     default='localhost,127.0.0.1'
 ).split(',')
 
-# ADICIONE ESTA LINHA: Essencial para formulários e login via IP/Domínio na Oracle
+
 CSRF_TRUSTED_ORIGINS = config(
     'CSRF_TRUSTED_ORIGINS',
     default='http://127.0.0.1,http://localhost'
