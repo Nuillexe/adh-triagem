@@ -77,23 +77,24 @@ WSGI_APPLICATION = 'dia14.wsgi.application'
 SECRET_KEY = config('SECRET_KEY')
 DEBUG = config('DEBUG', default=False, cast=bool)
 ALLOWED_HOSTS = config(
-    'ALLOWED_HOSTS',
-    default='localhost,127.0.0.1'
+    'localhost,127.0.0.1'
 ).split(',')
 
 
 CSRF_TRUSTED_ORIGINS = config(
-    'CSRF_TRUSTED_ORIGINS',
-    default='http://127.0.0.1,http://localhost'
+    
+    'http://127.0.0.1,http://localhost'
 ).split(',')
 
 # Configuração do Banco de Dados usando a variável de ambiente
+
+BASE_DIR = Path(__file__).resolve().parent.parent
+
 DATABASES = {
-    'default': dj_database_url.parse(
-        config('DATABASE_URL'),
-        conn_max_age=600,
-        ssl_require=True
-    )
+    'default': {
+        'ENGINE': 'django.db.backends.sqlite3',
+        'NAME': BASE_DIR / 'db.sqlite3',
+    }
 }
 # Password validation
 # https://docs.djangoproject.com/en/6.1/ref/settings/#auth-password-validators
