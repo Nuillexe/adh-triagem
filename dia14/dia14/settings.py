@@ -13,7 +13,7 @@ https://docs.djangoproject.com/en/6.1/ref/settings/
 from pathlib import Path
 from decouple import config
 import dj_database_url
-
+import os
 
 # Build paths inside the project like this: BASE_DIR / 'subdir'.
 BASE_DIR = Path(__file__).resolve().parent.parent
@@ -77,25 +77,34 @@ WSGI_APPLICATION = 'dia14.wsgi.application'
 SECRET_KEY = config('SECRET_KEY')
 DEBUG = config('DEBUG', default=False, cast=bool)
 ALLOWED_HOSTS = config(
-    'localhost,127.0.0.1'
+    'ALLOWED_HOSTS',
+    default='localhost,127.0.0.1'
 ).split(',')
 
 
 CSRF_TRUSTED_ORIGINS = config(
-    
-    'http://127.0.0.1,http://localhost'
+    'CSRF_TRUSTED_ORIGINS',
+    default='http://127.0.0.1,http://localhost'
 ).split(',')
 
 # Configuração do Banco de Dados usando a variável de ambiente
 
-BASE_DIR = Path(__file__).resolve().parent.parent
-
-DATABASES = {
-    'default': {
-        'ENGINE': 'django.db.backends.sqlite3',
-        'NAME': BASE_DIR / 'db.sqlite3',
+if os.getenv("USE_SQLITE") == "True":
+    DATABASES={
+        "default":{
+            "ENGINE":"django.db.backends.sqlite3",
+            "NAME": BASE_DIR/"DB.SQLITE3",
+        }
     }
-}
+else:
+
+    DATABASES = {
+            'default': dj_database_url.parse(
+                config('DATABASE_URL'),
+                conn_max_age=600,
+                ssl_require=True
+            )
+        }
 # Password validation
 # https://docs.djangoproject.com/en/6.1/ref/settings/#auth-password-validators
 
@@ -132,4 +141,3 @@ USE_TZ = True
 STATIC_URL = 'static/'
 STATIC_ROOT = BASE_DIR / 'staticfiles'
 STATICFILES_STORAGE = 'whitenoise.storage.CompressedManifestStaticFilesStorage'
-
