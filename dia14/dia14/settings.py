@@ -13,7 +13,7 @@ https://docs.djangoproject.com/en/6.1/ref/settings/
 from pathlib import Path
 from decouple import config
 import dj_database_url
-
+import os
 
 # Build paths inside the project like this: BASE_DIR / 'subdir'.
 BASE_DIR = Path(__file__).resolve().parent.parent
@@ -88,13 +88,23 @@ CSRF_TRUSTED_ORIGINS = config(
 ).split(',')
 
 # Configuração do Banco de Dados usando a variável de ambiente
-DATABASES = {
-    'default': dj_database_url.parse(
-        config('DATABASE_URL'),
-        conn_max_age=600,
-        ssl_require=True
-    )
-}
+
+if os.getenv("USE_SQLITE") == "True":
+    DATABASES={
+        "default":{
+            "ENGINE":"django.db.backends.sqlite3",
+            "NAME": BASE_DIR/"DB.SQLITE3",
+        }
+    }
+else:
+
+    DATABASES = {
+            'default': dj_database_url.parse(
+                config('DATABASE_URL'),
+                conn_max_age=600,
+                ssl_require=True
+            )
+        }
 # Password validation
 # https://docs.djangoproject.com/en/6.1/ref/settings/#auth-password-validators
 
@@ -131,4 +141,3 @@ USE_TZ = True
 STATIC_URL = 'static/'
 STATIC_ROOT = BASE_DIR / 'staticfiles'
 STATICFILES_STORAGE = 'whitenoise.storage.CompressedManifestStaticFilesStorage'
-

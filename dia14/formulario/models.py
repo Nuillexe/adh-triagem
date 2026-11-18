@@ -83,7 +83,7 @@ class Paciente(models.Model):
     sexo=models.CharField(max_length=1,choices=SEXO_CHOICES,blank=True, null=True)
 
     #Endereço
-    bairro=models.CharField(max_length=150, choices=CONDICAO_CHOICES)    
+    bairro=models.CharField(max_length=150, choices=BAIRRO_CHOICES)    
     rua=models.CharField(max_length=150)
     numero_da_residencia=models.CharField(max_length=10)
     cidade=models.CharField(max_length=150, choices=CIDADE_CHOICES)
@@ -95,7 +95,7 @@ class Paciente(models.Model):
 
 
     def __str__(self):
-         return f"Nome: {self.nome}, Idade: {self.idade}, Condição de saude: {self.condicao_saude}, glicemia: {self.glicemia}, pressao arterial: {self.pressaoAlta}/{self.pressaoBaixa}"
+         return f"Nome: {self.nome}, Idade: {self.idade}, Condição de saude: {self.condicao_saude}"
 
 
 class Evento(models.Model):
