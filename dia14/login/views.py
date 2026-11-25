@@ -3,8 +3,16 @@ from django.contrib.auth import authenticate, login, logout
 from django.contrib.auth.decorators import login_required
 from django.contrib import messages
 from django.contrib.auth.models import User
-
+import os
+from decouple import config
+from popular import inicializar_demonstracao
 def logar_usuario(request):
+
+    USE_SQLITE= config('USE_SQLITE', default="True", cast=bool)
+
+    if USE_SQLITE:
+        inicializar_demonstracao();
+        
     if request.method == 'POST':
         identificador = request.POST.get('username')
         senha = request.POST.get('senha')
