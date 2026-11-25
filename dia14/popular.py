@@ -125,6 +125,28 @@ def inicializar_demonstracao():
     
         print(f'\n{criados} pacientes criados com sucesso.')
         print(f'Todas as medições vinculadas ao evento: {evento.nome}')    
+
+
+        # =========================
+        # SUPERUSUÁRIO DEMO
+        # =========================
+        if User.objects.count==0:
+            User.objects.create_superuser(
+                username='admin',
+                email='admin@site.com',
+                password='admin',
+            )
+            print(
+            '\n[DEMO] Superusuário criado '
+            '(admin / 123456)'
+            )
+
+        else:
+            print(
+                '\n[DEMO] Já existem usuários. '
+                'Nenhum superusuário foi criado.'
+            )
+
     else:
         print("O banco ja estava populado com pacientes, eventos e mediçoes")
     
