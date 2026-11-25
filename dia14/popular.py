@@ -4,6 +4,7 @@ import django
 
 from django.db import connection
 from django.contrib.auth.models import User
+from django.conf import settings
 
 def inicializar_demonstracao():
     os.environ.setdefault('DJANGO_SETTINGS_MODULE', 'dia14.settings')
@@ -21,7 +22,10 @@ def inicializar_demonstracao():
     if banco!='sqlite':
         print("Inicialização cancelada! A população automatica só é permitida em SQLITE ")
         return
+
     
+    print("Arquivo SQLite:",settings.DATABASES["default"]["NAME"])
+
     if not Paciente.objects.exists():
     
         nomes_base = [
@@ -127,27 +131,30 @@ def inicializar_demonstracao():
         print(f'Todas as medições vinculadas ao evento: {evento.nome}')    
 
 
-        # =========================
-        # SUPERUSUÁRIO DEMO
-        # =========================
-        if User.objects.count==0:
-            User.objects.create_superuser(
-                username='admin',
-                email='admin@site.com',
-                password='admin',
-            )
-            print(
-            '\n[DEMO] Superusuário criado '
-            '(admin / 123456)'
-            )
-
-        else:
-            print(
-                '\n[DEMO] Já existem usuários. '
-                'Nenhum superusuário foi criado.'
-            )
+     
 
     else:
         print("O banco ja estava populado com pacientes, eventos e mediçoes")
-    
+
+
+
+    # =========================
+    # SUPERUSUÁRIO DEMO
+    # =========================
+    if User.objects.count==0:
+        User.objects.create_superuser(
+            username='admin',
+            email='admin@site.com',
+            password='admin',
+        )
+        print(
+        '\n[DEMO] Superusuário criado '
+        '(admin / 123456)'
+        )
+
+    else:
+        print(
+            '\n[DEMO] Já existem usuários. '
+            'Nenhum superusuário foi criado.'
+        )    
     
