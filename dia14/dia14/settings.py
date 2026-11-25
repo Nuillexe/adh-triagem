@@ -88,8 +88,8 @@ CSRF_TRUSTED_ORIGINS = config(
 ).split(',')
 
 # Configuração do Banco de Dados usando a variável de ambiente
-
-if os.getenv("USE_SQLITE") == "True":
+USE_SQLITE=config("USE_SQLITE", default=False, cast=bool)
+if USE_SQLITE == True:
     DATABASES={
         "default":{
             "ENGINE":"django.db.backends.sqlite3",
