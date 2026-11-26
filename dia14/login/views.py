@@ -3,8 +3,11 @@ from django.contrib.auth import authenticate, login, logout
 from django.contrib.auth.decorators import login_required
 from django.contrib import messages
 from django.contrib.auth.models import User
+import os
+from decouple import config
 
 def logar_usuario(request):
+        
     if request.method == 'POST':
         identificador = request.POST.get('username')
         senha = request.POST.get('senha')
