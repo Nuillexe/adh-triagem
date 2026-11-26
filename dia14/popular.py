@@ -3,31 +3,31 @@ import random
 import django
 
 from django.db import connection
-from django.contrib.auth.models import User
 from django.conf import settings
 
-def inicializar_demonstracao():
-    os.environ.setdefault('DJANGO_SETTINGS_MODULE', 'dia14.settings')
-    django.setup()
+os.environ.setdefault('DJANGO_SETTINGS_MODULE', 'dia14.settings')
+django.setup()
 
-    from formulario.models import Paciente, Evento, Medical_measurement
+from django.contrib.auth.models import User
 
-    #========================================
-    #Verificação do banco ===================
-    #========================================
+from formulario.models import Paciente, Evento, Medical_measurement
 
-    banco= connection.vendor
-    print(f'[DEMO] Banco detectado: {banco}')
+#========================================
+#Verificação do banco ===================
+#========================================
 
-    if banco!='sqlite':
-        print("Inicialização cancelada! A população automatica só é permitida em SQLITE ")
-        return
+banco= connection.vendor
+print(f'[DEMO] Banco detectado: {banco}')
 
-    
+if banco!='sqlite':
+    print("Inicialização cancelada! A população automatica só é permitida em SQLITE ")
+  
+
+else:
     print("Arquivo SQLite:",settings.DATABASES["default"]["NAME"])
 
     if not Paciente.objects.exists():
-    
+
         nomes_base = [
             "Ana", "Bruno", "Carlos", "Daniela", "Eduardo", "Fernanda",
             "Gabriel", "Helena", "Igor", "Juliana", "Kleber", "Larissa",
@@ -75,25 +75,25 @@ def inicializar_demonstracao():
             'zabele'
         ]
         print('Obtendo evento principal...')
-    
+
         evento, criado = Evento.objects.get_or_create(
         nome='dia14-Ação social de Educação em diabetes',
         defaults={
             'descricao': 'Ocorreu no Projeto Social Vila América.',
-               'data': '2026-11-14'
+                'data': '2026-11-14'
             }
         )
-    
+
         if criado:
             print('Evento criado.')
         else:
             print('Evento já existia.')
-    
+
         criados = 0
-    
+
         for i in range(35):
             nome = f"{random.choice(nomes_base)} {random.choice(sobrenomes_base)} {i+1}"
-    
+
             try:
                 paciente = Paciente.objects.create(
                     nome=nome,
@@ -106,7 +106,7 @@ def inicializar_demonstracao():
                     numero_da_residencia=str(random.randint(1, 999)),
                     cidade='vitoria_da_conquista'
                 )
-    
+
                 Medical_measurement.objects.create(
                     paciente=paciente,
                     evento=evento,
@@ -121,40 +121,38 @@ def inicializar_demonstracao():
                         ''
                     ])
                 )
-    
+
                 criados += 1
-    
+
             except Exception as e:
                 print(f'Erro ao criar {nome}: {e}')
-    
+
         print(f'\n{criados} pacientes criados com sucesso.')
         print(f'Todas as medições vinculadas ao evento: {evento.nome}')    
-
-
-     
 
     else:
         print("O banco ja estava populado com pacientes, eventos e mediçoes")
 
-
-
-    # =========================
-    # SUPERUSUÁRIO DEMO
-    # =========================
-    if User.objects.count==0:
+    #================================
+    #SuperUSUARIO DEMO===============
+    #================================
+    
+    
+    if User.objects.count()==0:
         User.objects.create_superuser(
             username='admin',
             email='admin@site.com',
             password='admin',
         )
-        print(
-        '\n[DEMO] Superusuário criado '
-        '(admin / 123456)'
-        )
 
+        print('\n[DEMO] Superusuario craido')
+        
     else:
-        print(
-            '\n[DEMO] Já existem usuários. '
-            'Nenhum superusuário foi criado.'
-        )    
-    
+        print('\n[DEMO] Ja existem usuarios, nenhum superUsuario foi criado')
+
+ 
+
+
+
+
+
