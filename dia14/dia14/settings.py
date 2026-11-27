@@ -87,6 +87,18 @@ CSRF_TRUSTED_ORIGINS = config(
     default='http://127.0.0.1,http://localhost'
 ).split(',')
 
+# Configurações adicionais de segurança
+
+# Cookies enviados somente por HTTPS em produção
+SESSION_COOKIE_SECURE = not DEBUG
+CSRF_COOKIE_SECURE = not DEBUG
+
+# Proteção contra incorporação da aplicação em frames externos
+X_FRAME_OPTIONS = 'DENY'
+
+# Política de referência
+SECURE_REFERRER_POLICY = 'same-origin'
+
 # Configuração do Banco de Dados usando a variável de ambiente
 USE_SQLITE=config("USE_SQLITE", default=False, cast=bool)
 if USE_SQLITE == True:
