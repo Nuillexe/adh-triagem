@@ -27,7 +27,7 @@ def obter_evento():
     return get_object_or_404(Evento, nome=NOME_EVENTO)
 
 
-#@login_required(login_url='login')
+@login_required(login_url='login')
 def painel_relatorio(request):
 
     evento = obter_evento()
@@ -36,7 +36,7 @@ def painel_relatorio(request):
     return render(request, "relatorios/relatorios.html", context)
 
 
-#@login_required(login_url='login')
+@login_required(login_url='login')
 def deletar_participante(request, paciente_id):
 
     paciente = get_object_or_404(Paciente, pk=paciente_id)
@@ -59,7 +59,7 @@ def deletar_participante(request, paciente_id):
     return redirect('relatorios')
 
 
-#@login_required(login_url='login')
+@login_required(login_url='login')
 def gerar_relatorio_pdf(request):
 
     evento = obter_evento()
