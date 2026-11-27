@@ -8,10 +8,6 @@
 ![Vercel](https://img.shields.io/badge/Prod-Vercel-000000?style=for-the-badge&logo=vercel&logoColor=white)
 ![Render](https://img.shields.io/badge/Demo-Render-46E3B7?style=for-the-badge&logo=render&logoColor=black)
 
-<p align="center">
-  <img src="docs/images/logo_adh.png" alt="Logo da ADH" width="200">
-</p>
-
 ## Descrição do projeto
 
 O **Triagem ADH** é um sistema desenvolvido para auxiliar no cadastro e na triagem dos participantes da *Ação Comunitária de Educação e Conscientização do Diabetes*, promovida pela Associação de Diabéticos e Hipertensos de Vitória da Conquista. A aplicação permite o registro de medições de glicemia e pressão arterial, observações clínicas, além da geração de estatísticas e relatórios em PDF a partir dos dados coletados.
