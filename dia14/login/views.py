@@ -27,7 +27,7 @@ def logar_usuario(request):
             usuario=None
             
         if usuario is not None:
-            login(request, usuario)
+            #login(request, usuario)
             messages.success(request, "Login realizado com sucesso!")
             return redirect('relatorios')  # Redireciona para o painel de relatórios
         else:
